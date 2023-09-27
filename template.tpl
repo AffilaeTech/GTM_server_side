@@ -1,4 +1,4 @@
-﻿___TERMS_OF_SERVICE___
+﻿﻿___TERMS_OF_SERVICE___
 
 By creating or modifying this file you agree to Google Tag Manager's Community
 Template Gallery Developer Terms of Service available at
@@ -90,7 +90,7 @@ const AFFILAE_TRACKING = 'https://lb.affilae.com/';
 
 switch (eventName) {
     case 'page_view':
-        const url = getRequestHeader('referer');
+        const url = eventData.page_location || getRequestHeader('referer');
         if (url) {
             const searchParams = parseUrl(url).searchParams;
             if (searchParams.aecid) {
@@ -110,7 +110,7 @@ switch (eventName) {
         break;
     case 'purchase':
         const aecid = getCookieValues('_ae_cid')[0] || '';
-        if (aecid) {
+        if (aecid || data.voucher) {
             let requestUrl = AFFILAE_TRACKING + '?key=' + encode(data.aeKey);
             requestUrl = requestUrl + '&id=' + encode(data.conversionId);
             requestUrl = requestUrl + '&amount=' + encode(data.conversionTotal);
@@ -261,6 +261,5 @@ scenarios: []
 
 ___NOTES___
 
-Created on 07/07/2023, 11:16:23
-
+Created on 27/09/2023, 08:18:40
 
