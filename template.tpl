@@ -21,7 +21,7 @@ ___INFO___
   },
   "description": "Collect clickId from redirection.\nPersist clickId.\nPostback conversion.",
   "containerContexts": [
-    "WEB"
+    "SERVER"
   ]
 }
 
