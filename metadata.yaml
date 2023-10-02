@@ -1,7 +1,10 @@
 homepage: "https://www.affilae.com"
 documentation: "https://affilae.com/en/integrations-2/google-tag-manager/"
 versions:
-  # Lasted version
+  # Latest version
+  - sha: 01dbab5e1ee61b26e0c8ab4722697dd7f8a2a36a
+    changesNotes: Updated Tag context
+  # Older versions
   - sha: 648843a0b9de06aba53a05a4a952d9c8147c8d03
     changeNotes: Fixed URL query-string.
   
