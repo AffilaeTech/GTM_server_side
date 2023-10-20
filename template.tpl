@@ -74,7 +74,7 @@ ___TEMPLATE_PARAMETERS___
 ]
 
 
-___SANDBOXED_JS_FOR_WEB_TEMPLATE___
+___SANDBOXED_JS_FOR_SERVER___
 
 const getRequestHeader = require('getRequestHeader');
 const encodeUriComponent = require('encodeUriComponent');
@@ -146,7 +146,7 @@ function encode(data) {
 }
 
 
-___WEB_PERMISSIONS___
+___SERVER_PERMISSIONS___
 
 [
   {
