@@ -2,9 +2,11 @@ homepage: "https://www.affilae.com"
 documentation: "https://affilae.com/en/integrations-2/google-tag-manager/"
 versions:
   # Latest version
+  - sha: 72df3af0030c0c90709627db88bd882d4a4d92d4
+    changesNotes: Updated category
+  # Older versions
   - sha: 31fccba26a4f5355a6a56f1567f6612acc26f87c
     changesNotes: Added new option to allow probabilistic attribution 
-  # Older versions
   - sha: 4547ff06340266f29b2c628e756cc161a52eeae9
     changesNotes: Added UA/IP headers data
   - sha: 737b8f681541374184a291613d2c592898192e29
