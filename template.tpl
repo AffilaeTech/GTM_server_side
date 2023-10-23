@@ -1,4 +1,4 @@
-﻿﻿___TERMS_OF_SERVICE___
+﻿___TERMS_OF_SERVICE___
 
 By creating or modifying this file you agree to Google Tag Manager's Community
 Template Gallery Developer Terms of Service available at
@@ -56,13 +56,13 @@ ___TEMPLATE_PARAMETERS___
   {
     "type": "TEXT",
     "name": "voucher",
-    "displayName": "Voucher (use ; as a separator to add multiple product)",
+    "displayName": "Voucher (use ; as a separator to add multiple codes)",
     "simpleValueType": true
   },
   {
     "type": "TEXT",
     "name": "productId",
-    "displayName": "Product Id (use ; as a separator to add multiple codes)",
+    "displayName": "Product Id (use ; as a separator to add multiple products)",
     "simpleValueType": true
   },
   {
@@ -70,6 +70,13 @@ ___TEMPLATE_PARAMETERS___
     "name": "conversionSubId",
     "displayName": "conversion SubId",
     "simpleValueType": true
+  },
+  {
+    "type": "CHECKBOX",
+    "name": "allowProbabilistic",
+    "checkboxText": "Allow Probabilistic Attribution",
+    "simpleValueType": true,
+    "defaultValue": false
   }
 ]
 
@@ -86,9 +93,10 @@ const getAllEventData = require('getAllEventData');
 const eventData = getAllEventData();
 const eventName = eventData.event_name;
 const getRemoteAddress = require('getRemoteAddress');
+const log = require('logToConsole');
 
 const UA = getRequestHeader('user-agent');
-const AFFILAE_TRACKING = 'https://lb.affilae.com/';
+const AFFILAE_TRACKING = 'https://lb.affilae.com/';  
 
 switch (eventName) {
     case 'page_view':
@@ -116,8 +124,8 @@ switch (eventName) {
           'x-ae-d-ip': getRemoteAddress(),
           'x-ae-d-ua': UA,
         };
-        
-        if (aecid || data.voucher) {
+       
+        if (data.allowProbabilistic || aecid || data.voucher) {
             let requestUrl = AFFILAE_TRACKING + '?key=' + encode(data.aeKey);
             requestUrl = requestUrl + '&id=' + encode(data.conversionId);
             requestUrl = requestUrl + '&amount=' + encode(data.conversionTotal);
@@ -127,7 +135,7 @@ switch (eventName) {
             requestUrl = requestUrl + '&product=' + encode(data.productId);
             requestUrl = requestUrl + '&currency=' + encode(data.conversionCurrency);
             requestUrl = requestUrl + '&cids=' + encode(aecid);
-
+         
             sendHttpRequest(requestUrl,
                 (statusCode, headers, body) => {
                     if (statusCode === 200) {
@@ -136,16 +144,18 @@ switch (eventName) {
                         data.gtmOnFailure();
                     }
                 },
-                {headers: requestHeaders},
-                {method: 'GET'}
+                {
+                headers: requestHeaders,
+                method: 'GET'
+                }
             );
         } else {
             data.gtmOnSuccess();
         }
         break;
     default:
-        data.gtmOnSuccess();
-        break;
+      data.gtmOnSuccess();
+      break;
 }
 
 function encode(data) {
@@ -347,6 +357,27 @@ ___SERVER_PERMISSIONS___
       "isEditedByUser": true
     },
     "isRequired": true
+  },
+  {
+    "instance": {
+      "key": {
+        "publicId": "logging",
+        "versionId": "1"
+      },
+      "param": [
+        {
+          "key": "environments",
+          "value": {
+            "type": 1,
+            "string": "debug"
+          }
+        }
+      ]
+    },
+    "clientAnnotations": {
+      "isEditedByUser": true
+    },
+    "isRequired": true
   }
 ]
 
@@ -359,4 +390,5 @@ scenarios: []
 ___NOTES___
 
 Created on 27/09/2023, 08:18:40
+
 
