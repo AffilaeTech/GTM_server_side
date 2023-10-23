@@ -1,4 +1,4 @@
-﻿___TERMS_OF_SERVICE___
+﻿﻿___TERMS_OF_SERVICE___
 
 By creating or modifying this file you agree to Google Tag Manager's Community
 Template Gallery Developer Terms of Service available at
@@ -14,6 +14,7 @@ ___INFO___
   "version": 1,
   "securityGroups": [],
   "displayName": "Affilae - Server Side",
+  "categories": ["AFFILIATE_MARKETING", "CONVERSIONS", "ATTRIBUTION", "MARKETING"],
   "brand": {
     "id": "brand_dummy",
     "displayName": "",
@@ -346,7 +347,7 @@ ___SERVER_PERMISSIONS___
             "listItem": [
               {
                 "type": 1,
-                "string": "https://*.affilae.com/"
+                "string": "https://\*.affilae.com/"
               }
             ]
           }
