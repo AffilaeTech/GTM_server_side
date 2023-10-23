@@ -38,37 +38,37 @@ ___TEMPLATE_PARAMETERS___
   {
     "type": "TEXT",
     "name": "conversionId",
-    "displayName": "conversionId",
+    "displayName": "Conversion Id",
     "simpleValueType": true
   },
   {
     "type": "TEXT",
     "name": "conversionTotal",
-    "displayName": "conversionTotal",
+    "displayName": "Conversion Total Excl. VAT",
     "simpleValueType": true
   },
   {
     "type": "TEXT",
     "name": "conversionCurrency",
-    "displayName": "conversionCurrency",
+    "displayName": "Currency",
     "simpleValueType": true
   },
   {
     "type": "TEXT",
     "name": "voucher",
-    "displayName": "voucher",
+    "displayName": "Voucher (use ; as a separator to add multiple product)",
     "simpleValueType": true
   },
   {
     "type": "TEXT",
     "name": "productId",
-    "displayName": "productId",
+    "displayName": "Product Id (use ; as a separator to add multiple codes)",
     "simpleValueType": true
   },
   {
     "type": "TEXT",
     "name": "conversionSubId",
-    "displayName": "conversionSubId",
+    "displayName": "conversion SubId",
     "simpleValueType": true
   }
 ]
@@ -85,7 +85,9 @@ const parseUrl = require('parseUrl');
 const getAllEventData = require('getAllEventData');
 const eventData = getAllEventData();
 const eventName = eventData.event_name;
+const getRemoteAddress = require('getRemoteAddress');
 
+const UA = getRequestHeader('user-agent');
 const AFFILAE_TRACKING = 'https://lb.affilae.com/';
 
 switch (eventName) {
@@ -110,6 +112,11 @@ switch (eventName) {
         break;
     case 'purchase':
         const aecid = getCookieValues('_ae_cid')[0] || '';
+        const requestHeaders = {
+          'x-ae-d-ip': getRemoteAddress(),
+          'x-ae-d-ua': UA,
+        };
+        
         if (aecid || data.voucher) {
             let requestUrl = AFFILAE_TRACKING + '?key=' + encode(data.aeKey);
             requestUrl = requestUrl + '&id=' + encode(data.conversionId);
@@ -129,6 +136,7 @@ switch (eventName) {
                         data.gtmOnFailure();
                     }
                 },
+                {headers: requestHeaders},
                 {method: 'GET'}
             );
         } else {
@@ -240,6 +248,95 @@ ___SERVER_PERMISSIONS___
                     "string": "any"
                   }
                 ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "clientAnnotations": {
+      "isEditedByUser": true
+    },
+    "isRequired": true
+  },
+  {
+    "instance": {
+      "key": {
+        "publicId": "read_request",
+        "versionId": "1"
+      },
+      "param": [
+        {
+          "key": "requestAccess",
+          "value": {
+            "type": 1,
+            "string": "any"
+          }
+        },
+        {
+          "key": "headerAccess",
+          "value": {
+            "type": 1,
+            "string": "any"
+          }
+        },
+        {
+          "key": "queryParameterAccess",
+          "value": {
+            "type": 1,
+            "string": "any"
+          }
+        }
+      ]
+    },
+    "clientAnnotations": {
+      "isEditedByUser": true
+    },
+    "isRequired": true
+  },
+  {
+    "instance": {
+      "key": {
+        "publicId": "read_event_data",
+        "versionId": "1"
+      },
+      "param": [
+        {
+          "key": "eventDataAccess",
+          "value": {
+            "type": 1,
+            "string": "any"
+          }
+        }
+      ]
+    },
+    "clientAnnotations": {
+      "isEditedByUser": true
+    },
+    "isRequired": true
+  },
+  {
+    "instance": {
+      "key": {
+        "publicId": "send_http",
+        "versionId": "1"
+      },
+      "param": [
+        {
+          "key": "allowedUrls",
+          "value": {
+            "type": 1,
+            "string": "specific"
+          }
+        },
+        {
+          "key": "urls",
+          "value": {
+            "type": 2,
+            "listItem": [
+              {
+                "type": 1,
+                "string": "https://*.affilae.com/"
               }
             ]
           }
