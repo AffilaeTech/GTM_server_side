@@ -2,9 +2,11 @@ homepage: "https://www.affilae.com"
 documentation: "https://affilae.com/en/integrations-2/google-tag-manager/"
 versions:
   # Latest version
+  - sha: 4547ff06340266f29b2c628e756cc161a52eeae9
+    changesNotes: Added UA/IP headers data
+  # Older versions
   - sha: 737b8f681541374184a291613d2c592898192e29
     changesNotes: Updated Template type
-  # Older versions
   - sha: 01dbab5e1ee61b26e0c8ab4722697dd7f8a2a36a
     changesNotes: Updated Tag context
   - sha: 648843a0b9de06aba53a05a4a952d9c8147c8d03
