@@ -14,7 +14,7 @@ ___INFO___
   "version": 1,
   "securityGroups": [],
   "displayName": "Affilae - Server Side",
-  "categories": ["AFFILIATE_MARKETING", "CONVERSIONS", "ATTRIBUTION", "MARKETING"],
+  "categories": ["AFFILIATE_MARKETING", "CONVERSIONS", "MARKETING"],
   "brand": {
     "id": "brand_dummy",
     "displayName": "Affilae - Server Side",
