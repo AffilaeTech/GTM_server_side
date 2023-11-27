@@ -136,6 +136,7 @@ switch (eventName) {
             requestUrl = requestUrl + '&product=' + encode(data.productId);
             requestUrl = requestUrl + '&currency=' + encode(data.conversionCurrency);
             requestUrl = requestUrl + '&cids=' + encode(aecid);
+            requestUrl = requestUrl + '&v=server_gtm';
 
             sendHttpRequest(requestUrl,
                 (statusCode, headers, body) => {
